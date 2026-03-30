@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Node (if tooling is ever added)
+node_modules/
