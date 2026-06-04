@@ -7,6 +7,7 @@ A personal collection of custom skills for [Claude Code](https://claude.ai/code)
 | Skill                                   | Description                                                                                 |
 | --------------------------------------- | ------------------------------------------------------------------------------------------- |
 | [sprint-method](sprint-method/SKILL.md) | Guide through the full Design Sprint methodology — from problem mapping to tested prototype |
+| [startup-scaffolding](startup-scaffolding/SKILL.md) | Generate a complete investor-grade documentation suite for a new startup or product idea — Vision, Validation, PRD, AI Instructions, Project Description, and repo stubs |
 
 ## Installation
 

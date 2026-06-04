@@ -1,6 +1,6 @@
 ---
 name: startup-scaffolding
-version: 0.2.0
+version: 0.3.0
 description: >
   Generates complete foundational documentation for a new business or startup idea.
   Trigger this skill immediately whenever the user says "Let's scaffold a startup",
@@ -16,8 +16,9 @@ description: >
 # Startup Scaffolding Skill
 
 Produces a complete, investor-grade documentation suite for a new business or
-product idea. Assumes Claude.ai is the primary AI tool supporting development unless
-the user specifies otherwise.
+product idea. Uses whatever AI tool the user is currently working with as the primary
+AI for development support. Never assume a specific AI product — infer it from context
+or ask during intake if unclear.
 
 ---
 
@@ -298,13 +299,14 @@ emotional stakes]
 
 ### Output 5 — AI Instructions Document
 
-This document defines how Claude.ai should assist throughout the project lifecycle.
-Tailor to the product type.
+This document defines how the AI assistant should help throughout the project lifecycle.
+Tailor to the product type. Replace "[AI tool]" throughout with the actual AI the
+founder is using (e.g., Claude, ChatGPT, Copilot).
 
 ```markdown
 ## AI Instructions — [Project Name]
 
-> This document tells Claude.ai how to assist on this project. Paste it at the start
+> This document tells [AI tool] how to assist on this project. Paste it at the start
 > of any new conversation to re-establish context.
 
 ### Project Context
@@ -375,7 +377,7 @@ by [core mechanism].
 
 **Built with** _(if known)_: [Stack]
 
-**AI-assisted development**: This project uses Claude.ai to support product design,
+**AI-assisted development**: This project uses [AI tool] to support product design,
 engineering, and content decisions throughout the build.
 ```
 
@@ -432,7 +434,7 @@ After generating all 6 outputs:
 | User says "assume X for now"              | Record X as `[placeholder — to be confirmed]` in the relevant section; continue.                                                                                                                  |
 | User has no validation data               | Ask directly: "Have you spoken to anyone with this problem yet?" If no, note the gap in the Validation doc with 3 suggested discovery questions and a checklist. Do not fabricate interview rows. |
 | User has a very technical idea            | Ask: "Who is the non-technical end user, if any?" before writing personas.                                                                                                                        |
-| User is a solo non-technical founder      | In AI Instructions, emphasize no-code / low-code paths; note Claude as primary builder.                                                                                                           |
+| User is a solo non-technical founder      | In AI Instructions, emphasize no-code / low-code paths; note the current AI tool as primary builder.                                                                                             |
 | User wants only one document              | Clarify which one, generate it fully, and note which others remain.                                                                                                                               |
 | B2B vs B2C                                | Adjust personas (buyer vs. user split for B2B); add champion/economic buyer distinction in PRD.                                                                                                   |
 | Physical product                          | Adjust NFRs; replace scalability section with manufacturing/supply chain constraints.                                                                                                             |
