@@ -1,6 +1,6 @@
 ---
 name: startup-scaffolding
-version: 0.1.0
+version: 0.2.0
 description: >
   Generates complete foundational documentation for a new business or startup idea.
   Trigger this skill immediately whenever the user says "Let's scaffold a startup",
@@ -73,8 +73,14 @@ Validate each answer before moving on:
   an error, unblocks something?"_
 - If one story contains multiple actions → split: _"Let's make that two stories."_
 
-Once all stories are confirmed, compile them and proceed to document generation.
-Flag any story where the founder was uncertain as `[needs validation]`.
+Once all stories are confirmed, flag any story where the founder was uncertain as
+`[needs validation]`, then ask:
+
+> "Great — I have everything I need to generate your full document suite: Vision,
+> Validation, PRD, AI Instructions, Project Description, and a set of starter stubs
+> for the rest of your repo. Ready for me to go ahead?"
+
+Only proceed to Phase 2 after the founder confirms.
 
 ---
 
@@ -126,7 +132,7 @@ ready to copy into a repo, Notion, or Google Docs.
 
 Use this exact output order:
 
-### Output 1 — Project Name & Tagline
+### Output 1 — Project Name & Tagline `/startup/README.md` (header)
 
 ```
 # [Project Name]
@@ -239,55 +245,14 @@ emotional stakes]
 
 ### User Stories
 
-> **How these are gathered**: User stories are NOT invented by Claude. They are
-> always elicited from the founder using the three-part interview in Phase 1b. Do
-> not write any stories until that conversation has happened. If the PRD is being
-> generated before the story session is complete, pause and return to Phase 1b.
-
-#### Story Elicitation Interview
-
-For each story, ask the founder three questions in sequence:
-
-**Part 1 — The Role**
-
-> "Who is performing this action? Use one of your persona names, or describe the
-> role in plain language (e.g., 'a first-time user', 'an admin', 'a paying customer')."
-
-**Part 2 — The Want**
-
-> "What does that person want to _do_ — not what outcome they want, just the action
-> itself. Think: what button would they click, what task would they complete?"
-
-**Part 3 — The So That**
-
-> "Why does that action matter to them? What changes in their life or work when
-> this works correctly?"
-
-Combine into the standard format:
-```
-
-As a [role], I want to [action] so that [outcome].
-
-```
-
-Repeat for each story. Aim for 3–5 MVP stories and 2–3 V2 stories minimum.
-
-**Tips for better stories:**
-- If the "want" describes a *feature* ("I want a dashboard"), push back:
-  "What would you use that dashboard *to do*?"
-- If the "so that" is vague ("so it's easier"), push back:
-  "Easier how — saves time, reduces errors, avoids a manual step?"
-- One story = one user action. Split compound wants ("I want to create *and* share")
-  into two stories.
-
----
-
 **Must-have (MVP)**
+
 - As a [role], I want to [action] so that [outcome].
 - As a [role], I want to [action] so that [outcome].
 - [3–5 total — elicited, not invented]
 
 **Nice-to-have (V2+)**
+
 - As a [role], I want to [action] so that [outcome].
 - [2–3 total — elicited, not invented]
 
@@ -296,27 +261,31 @@ Repeat for each story. Aim for 3–5 MVP stories and 2–3 V2 stories minimum.
 ### Features
 
 #### MVP (Ship to first 10 users)
-| # | Feature | Description | Priority |
-|---|---------|-------------|----------|
-| 1 | [Name] | [What it does] | P0 |
-| 2 | [Name] | [What it does] | P0 |
-| … | … | … | … |
+
+| #   | Feature | Description    | Priority |
+| --- | ------- | -------------- | -------- |
+| 1   | [Name]  | [What it does] | P0       |
+| 2   | [Name]  | [What it does] | P0       |
+| …   | …       | …              | …        |
 
 #### Future Features (Post-PMF)
-| # | Feature | Rationale |
-|---|---------|-----------|
-| 1 | [Name] | [Why later] |
+
+| #   | Feature | Rationale   |
+| --- | ------- | ----------- |
+| 1   | [Name]  | [Why later] |
 
 #### Phased Plan
-| Phase | Milestone | Target |
-|-------|-----------|--------|
-| Phase 1 — Foundation | Core loop working, 10 beta users | [Month range] |
+
+| Phase                | Milestone                             | Target        |
+| -------------------- | ------------------------------------- | ------------- |
+| Phase 1 — Foundation | Core loop working, 10 beta users      | [Month range] |
 | Phase 2 — PMF Search | 100 active users, validated retention | [Month range] |
-| Phase 3 — Growth | Paid tier, referral loop, team growth | [Month range] |
+| Phase 3 — Growth     | Paid tier, referral loop, team growth | [Month range] |
 
 ---
 
 ### Non-Functional Requirements
+
 - **Performance**: [e.g., Page load <2s, API response <500ms]
 - **Security**: [e.g., Auth via OAuth2, no PII stored without consent]
 - **Scalability**: [e.g., Must support 10k concurrent users by Phase 3]
@@ -386,7 +355,7 @@ known]. Current phase: [Discovery / Build / Launch / Growth].
 
 ---
 
-### Output 6 — Project Description
+### Output 6 — Project Description `/startup/README.md` (body)
 
 A short, portable overview for README files, pitch decks, or social sharing.
 
@@ -409,6 +378,36 @@ by [core mechanism].
 **AI-assisted development**: This project uses Claude.ai to support product design,
 engineering, and content decisions throughout the build.
 ```
+
+---
+
+### Output 7 — Stub Files
+
+Generate the following stub files after the 6 main outputs. Each stub uses this
+format:
+
+```markdown
+# [Document Title]
+
+[One-line description of what belongs in this file]
+
+## Status
+
+🔲 Not started — scaffold only
+
+## Next Steps
+
+[One or two prompts guiding the founder on what to fill in here and when]
+```
+
+| File path                                  | Title            | Next Steps prompt                                                                    |
+| ------------------------------------------ | ---------------- | ------------------------------------------------------------------------------------ |
+| `/startup/business/business-model.md`      | Business Model   | Define revenue streams, pricing, and cost structure once the MVP is validated.       |
+| `/startup/product/roadmap.md`              | Product Roadmap  | Seed from the Phased Plan in your PRD; expand timelines as the team grows.           |
+| `/startup/engineering/architecture.md`     | Architecture     | Sketch the system design once you've chosen your core stack.                         |
+| `/startup/engineering/decisions.md`        | Decision Log     | Record architecture and product decisions here as you make them, with the rationale. |
+| `/startup/engineering/coding-standards.md` | Coding Standards | Define conventions, linting rules, and patterns once your first engineer joins.      |
+| `/startup/ai/prompt-library.md`            | Prompt Library   | Collect reusable prompts for recurring tasks as you discover them during the build.  |
 
 ---
 
